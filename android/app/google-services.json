@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "819399849442",
+    "project_id": "hire-me-d9665",
+    "storage_bucket": "hire-me-d9665.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819399849442:android:aff74f8765e77ae2c135bb",
+        "android_client_info": {
+          "package_name": "com.example.hire_me"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuCg3XbVsxGkbZPmzNk4yEmkVbsO-P5C4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
