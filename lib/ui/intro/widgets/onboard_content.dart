@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'landing_content_one.dart';
@@ -38,7 +39,7 @@ class _OnboardContentState extends State<OnboardContent> {
     if (page >= 1.5) {
       return 330;
     } else if (page >= 0.5) {
-      return 270;
+      return 250;
     } else {
       return 50;
     }
@@ -57,20 +58,22 @@ class _OnboardContentState extends State<OnboardContent> {
   Future<void> _onIntroCompleted() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('showIntro', false);
-    context.pushReplacement("/login");
+    if (context.mounted) {
+      context.pushReplacement("/login");
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 400 +
-          (_pageController.hasClients ? _pageController.page ?? 0 : 0) * 160,
+      height: 400.h +
+          (_pageController.hasClients ? _pageController.page ?? 0 : 0) * 160.h,
       child: Stack(
         fit: StackFit.expand,
         children: [
           Column(
             children: [
-              const SizedBox(height: 16),
+              SizedBox(height: 16.h),
               Expanded(
                 child: PageView(
                   controller: _pageController,
@@ -89,7 +92,7 @@ class _OnboardContentState extends State<OnboardContent> {
               return AnimatedPositioned(
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.ease,
-                height: 50,
+                height: 50.h,
                 bottom: _getButtonBottomPosition(_pageController.page ?? 0),
                 right: 16,
                 child: GestureDetector(
@@ -104,7 +107,7 @@ class _OnboardContentState extends State<OnboardContent> {
                     }
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(25)),
                       gradient: LinearGradient(
@@ -112,14 +115,14 @@ class _OnboardContentState extends State<OnboardContent> {
                         end: Alignment.topRight,
                         stops: [0.4, 0.8],
                         colors: [
-                          Color.fromARGB(255, 239, 104, 80),
-                          Color.fromARGB(255, 139, 33, 146)
+                          Color.fromRGBO(143, 148, 251, 1),
+                          Color.fromRGBO(143, 148, 251, .6),
                         ],
                       ),
                     ),
                     child: DefaultTextStyle(
-                      style: const TextStyle(
-                        fontSize: 16,
+                      style: TextStyle(
+                        fontSize: 16.sp,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       ),

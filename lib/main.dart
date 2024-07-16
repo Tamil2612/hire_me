@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hire_me/utils/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'theme/light_mode.dart';
@@ -23,10 +24,17 @@ Future main() async {
   final showIntro = prefs.getBool('showIntro') ?? true;
   final loginDone = prefs.getBool('loginDone') ?? false;
 
-  runApp(MyApp(
-    showIntro: showIntro,
-    loginDone: loginDone,
-  ));
+  runApp(
+    ScreenUtilInit(
+      designSize: const Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child) => MyApp(
+        showIntro: showIntro,
+        loginDone: loginDone,
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

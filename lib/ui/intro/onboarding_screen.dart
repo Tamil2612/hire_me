@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hire_me/ui/intro/widgets/onboard_content.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -18,10 +19,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         enableDrag: false,
         isScrollControlled: true,
         isDismissible: false,
-        shape: const RoundedRectangleBorder(
+        shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+            topLeft: Radius.circular(30.r),
+            topRight: Radius.circular(30.r),
           ),
         ),
         builder: (_) => WillPopScope(
@@ -36,8 +37,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.black,
-      )
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/logo.png"),
+            alignment: Alignment.topCenter
+          ),
+        ),
+      ),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 
 class IntroScreenTwo extends StatelessWidget {
@@ -7,24 +8,24 @@ class IntroScreenTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(24.0),
+      padding:  EdgeInsets.all(24.0.w),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+           Text(
             "Boost Your Career!",
-            style: TextStyle(fontSize: 30, height: 1.2),
+            style: TextStyle(fontSize: 30.sp, height: 1.2),
           ),
-          const SizedBox(
-            height: 16,
+           SizedBox(
+            height: 16.h,
           ),
           Text(
             "Unlock your potential and elevate your career journey. Discover jobs tailored just for you, get real-time notifications so you never miss an opportunity, and access expert career advice to shine in your job search. Your dream job is just a tap away. Get started now!",
             style: TextStyle(fontSize: 14, color: Colors.blueGrey.shade300),
           ),
-          const SizedBox(
-            height: 20,
+           SizedBox(
+            height: 20.h,
           ),
           Expanded(
             child: Lottie.asset(

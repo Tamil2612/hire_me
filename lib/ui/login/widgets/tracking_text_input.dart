@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:heroicons/heroicons.dart';
 import 'input_helper.dart';
 
 typedef CaretMoved = void Function(Offset? globalCaretPosition);
 typedef TextChanged = void Function(String text);
 typedef FieldValidator = String? Function(String? value);
 
-// Helper widget to track caret position.
 class TrackingTextInput extends StatefulWidget {
   const TrackingTextInput({
     Key? key,
@@ -18,6 +19,7 @@ class TrackingTextInput extends StatefulWidget {
     required this.textController,
     this.validator,
     this.focusNode,
+    this.isPasswordField = false,
   }) : super(key: key);
 
   final CaretMoved? onCaretMoved;
@@ -28,6 +30,7 @@ class TrackingTextInput extends StatefulWidget {
   final TextEditingController textController;
   final FieldValidator? validator;
   final FocusNode? focusNode;
+  final bool isPasswordField;
 
   @override
   _TrackingTextInputState createState() => _TrackingTextInputState();
@@ -36,16 +39,15 @@ class TrackingTextInput extends StatefulWidget {
 class _TrackingTextInputState extends State<TrackingTextInput> {
   final GlobalKey _fieldKey = GlobalKey();
   Timer? _debounceTimer;
+  bool _isObscured = true;
 
   @override
   void initState() {
+    _isObscured = widget.isObscured;
     widget.textController.addListener(() {
-      // We debounce the listener as sometimes the caret position is updated after the listener
-      // this assures us we get an accurate caret position.
       if (_debounceTimer?.isActive ?? false) _debounceTimer!.cancel();
       _debounceTimer = Timer(const Duration(milliseconds: 100), () {
         if (_fieldKey.currentContext != null) {
-          // Find the render editable in the field.
           final RenderObject? fieldBox =
               _fieldKey.currentContext?.findRenderObject();
           var caretPosition =
@@ -59,19 +61,33 @@ class _TrackingTextInputState extends State<TrackingTextInput> {
     super.initState();
   }
 
+  void _toggleObscureText() {
+    setState(() {
+      _isObscured = !_isObscured;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
+      padding:  EdgeInsets.only(bottom: 20.0.w),
       child: TextFormField(
         decoration: InputDecoration(
           hintText: widget.hint,
           labelText: widget.label,
+          suffixIcon: widget.isPasswordField
+              ? IconButton(
+                  icon: HeroIcon(
+                    _isObscured ? HeroIcons.eye : HeroIcons.eyeSlash,
+                  ),
+                  onPressed: _toggleObscureText,
+                )
+              : null,
         ),
         key: _fieldKey,
         focusNode: widget.focusNode,
         controller: widget.textController,
-        obscureText: widget.isObscured,
+        obscureText: widget.isPasswordField ? _isObscured : widget.isObscured,
         validator: widget.validator,
       ),
     );

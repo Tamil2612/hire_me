@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SigninButton extends StatelessWidget {
   final Widget child;
@@ -10,7 +11,7 @@ class SigninButton extends StatelessWidget {
     Key? key,
     required this.child,
     this.width = double.infinity,
-    this.height = 50.0,
+    this.height = 50,
     required this.onPressed,
   }) : super(key: key);
 
@@ -18,9 +19,9 @@ class SigninButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
-      height: 50.0,
+      height: 50.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25.0),
+        borderRadius: BorderRadius.circular(25.0.r),
         gradient: const LinearGradient(
           colors: <Color>[
             Color.fromRGBO(143, 148, 251, 1),
